@@ -57,9 +57,19 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [_backgroundWidget, _foregroundWidget],
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.chat_bubble), label: 'chat'),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.chat_bubble), label: 'chat'),
+        ],
+      ),
+      tabBuilder: (context, index) => Material(
+        child: Stack(
+          children: [_backgroundWidget, _foregroundWidget],
+        ),
       ),
     );
   }
