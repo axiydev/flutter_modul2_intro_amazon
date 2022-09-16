@@ -45,28 +45,61 @@ class _ApplePageState extends State<ApplePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: const Text('Apple Products'),
-        elevation: .0,
-        bottomOpacity: .0,
-        actions: [counterWidget],
-      ),
-      drawer: Drawer(
-        child: Column(
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.minWidth < 600) {
+        return mobileView;
+      } else {
+        return Row(
           children: [
-            DrawerHeader(
-                padding: EdgeInsets.zero,
-                child: Container(
-                  color: Colors.white,
-                ))
+            Drawer(
+              child: Column(
+                children: [
+                  DrawerHeader(
+                      padding: EdgeInsets.zero,
+                      child: Container(
+                        color: Colors.white,
+                        alignment: FractionalOffset.center,
+                        child: const Text(
+                          'Drawer',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ))
+                ],
+              ),
+            ),
+            Expanded(child: mobileView)
           ],
-        ),
-      ),
-      body: body,
-    );
+        );
+      }
+    });
   }
+
+  Widget get mobileView => Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBar(
+          title: const Text('Apple Products'),
+          elevation: .0,
+          bottomOpacity: .0,
+          actions: [counterWidget],
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              DrawerHeader(
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                    color: Colors.white,
+                    alignment: FractionalOffset.center,
+                    child: const Text(
+                      'Drawer',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ))
+            ],
+          ),
+        ),
+        body: SizedBox(child: body),
+      );
 
   Widget get body => SafeArea(
           child: SingleChildScrollView(
