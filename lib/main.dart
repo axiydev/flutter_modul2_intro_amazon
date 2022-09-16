@@ -9,7 +9,7 @@ Mavzu:::Login UI
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lesson_g/page/sign_in/sign_in_page.dart';
+import 'package:lesson_g/page/apple/apple_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +28,22 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true,
       builder: DevicePreview.appBuilder,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SignInPage(),
+          primarySwatch: Colors.blue,
+          drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+          textTheme: const TextTheme(
+              bodyLarge: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400)),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black)),
+          backgroundColor: Colors.black),
+      home: const ApplePage(),
     );
   }
 }
