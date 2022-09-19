@@ -15,7 +15,7 @@ class IntroCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlayAnimationBuilder<double?>(
       fps: 60,
-      tween: Tween(begin: .0, end: 1),
+      tween: Tween(begin: 0, end: 1),
       duration: const Duration(milliseconds: 600),
       builder: (context, value, _) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
