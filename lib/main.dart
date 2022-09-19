@@ -9,7 +9,7 @@ Mavzu:::Login UI
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lesson_g/page/apple/apple_page.dart';
+import 'package:lesson_g/page/intro/intro_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black)),
           backgroundColor: Colors.black),
-      home: const ApplePage(),
+      home: const IntroPage(),
     );
   }
 }
