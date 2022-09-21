@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:lesson_g/model/car_model.dart';
 import 'package:lesson_g/page/cars/widget/cars_widget.dart';
 
@@ -83,54 +84,74 @@ class _CarsPageState extends State<CarsPage> {
         children: [
           SizedBox(
             height: 70,
-            child: ListView.separated(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: carColors!.length,
-                separatorBuilder: (context, index) => const SizedBox(
-                      width: 10,
-                    ),
-                itemBuilder: (context, index) {
-                  final carColor = carColors![index];
-                  return AspectRatio(
-                    aspectRatio: 2 / 1,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-                        currentColor = carColor;
-                        setState(() {});
-                      },
-                      child: Card(
-                        elevation: .0,
-                        margin: EdgeInsets.zero,
-                        color: carColor.toLowerCase() ==
-                                currentColor!.toLowerCase()
-                            ? Colors.grey[300]
-                            : Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Center(
-                            child: Text(
-                          carColor,
-                          style: const TextStyle(fontSize: 16),
-                        )),
+            child: AnimationLimiter(
+              child: ListView.separated(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: carColors!.length,
+                  separatorBuilder: (context, index) => const SizedBox(
+                        width: 10,
                       ),
-                    ),
-                  );
-                }),
+                  itemBuilder: (context, index) {
+                    final carColor = carColors![index];
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 500),
+                      child: SlideAnimation(
+                        delay: const Duration(milliseconds: 100),
+                        child: AspectRatio(
+                          aspectRatio: 2 / 1,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(30),
+                            onTap: () {
+                              currentColor = carColor;
+                              setState(() {});
+                            },
+                            child: Card(
+                              elevation: .0,
+                              margin: EdgeInsets.zero,
+                              color: carColor.toLowerCase() ==
+                                      currentColor!.toLowerCase()
+                                  ? Colors.grey[300]
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                  child: Text(
+                                carColor,
+                                style: const TextStyle(fontSize: 16),
+                              )),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
           ),
           const SizedBox(
             height: 15,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: cars.length,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => CarsWidget(
-                  onPressed: () => selectFavourite(index), car: cars[index]),
+            child: AnimationLimiter(
+              child: ListView.builder(
+                itemCount: cars.length,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                shrinkWrap: true,
+                itemBuilder: (context, index) =>
+                    AnimationConfiguration.staggeredList(
+                  duration: const Duration(milliseconds: 500),
+                  position: index,
+                  child: ScaleAnimation(
+                    delay: const Duration(milliseconds: 200),
+                    child: CarsWidget(
+                        onPressed: () => selectFavourite(index),
+                        car: cars[index]),
+                  ),
+                ),
+              ),
             ),
           )
         ],
