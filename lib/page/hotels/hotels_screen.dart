@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:lesson_g/model/hotel_model.dart';
 /*
 Created by Axmadjon Isaqov on 10:01:57 23.09.2022
@@ -33,10 +34,10 @@ class _HotelsScreenState extends State<HotelsScreen> {
             expandedHeight: 200,
             stretch: true,
             backgroundColor: Colors.white,
-            floating: true,
+            floating: false,
             elevation: .0,
             pinned: true,
-            snap: true,
+            // snap: false,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Column(
@@ -97,114 +98,186 @@ class _HotelsScreenState extends State<HotelsScreen> {
               ),
             ),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             sliver: SliverToBoxAdapter(
-              child: Text(
-                'Best Hotels',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20),
+              child: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Best Hotels',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'show all',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           SliverToBoxAdapter(
             child: SizedBox(
               height: 170,
-              child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  itemCount: _list.length,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final Hotel hotel = _list[index];
-                    return AspectRatio(
-                      aspectRatio: 2.1 / 1.4,
-                      child: Card(
-                        color: Colors.transparent,
-                        margin: EdgeInsets.zero,
-                        elevation: .0,
-                        child: Container(
-                          padding: const EdgeInsets.all(15),
-                          alignment: FractionalOffset.bottomLeft,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                  image: AssetImage(hotel.image),
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.3),
-                                      BlendMode.darken),
-                                  fit: BoxFit.cover)),
-                          child: Text(
-                            '${hotel.title} ${index + 1}',
-                            style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+              child: AnimationLimiter(
+                child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    itemCount: _list.length,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final Hotel hotel = _list[index];
+                      return AnimationConfiguration.staggeredList(
+                        duration: const Duration(seconds: 1),
+                        position: index,
+                        child: ScaleAnimation(
+                          delay: const Duration(milliseconds: 200),
+                          child: AspectRatio(
+                            aspectRatio: 2.1 / 1.4,
+                            child: Card(
+                              color: Colors.transparent,
+                              margin: EdgeInsets.zero,
+                              elevation: .0,
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                alignment: FractionalOffset.bottomLeft,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: DecorationImage(
+                                        image: AssetImage(hotel.image),
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.3),
+                                            BlendMode.darken),
+                                        fit: BoxFit.cover)),
+                                child: Text(
+                                  '${hotel.title} ${index + 1}',
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+              ),
             ),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             sliver: SliverToBoxAdapter(
-              child: Text(
-                'Luxury Hotels',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20),
+              child: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Luxury Hotels',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'show all',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           SliverToBoxAdapter(
             child: SizedBox(
               height: 170,
-              child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  itemCount: _list.length,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final Hotel hotel = _list.reversed.toList()[index];
-                    return AspectRatio(
-                      aspectRatio: 2.1 / 1.4,
-                      child: Card(
-                        color: Colors.transparent,
-                        margin: EdgeInsets.zero,
-                        elevation: .0,
-                        child: Container(
-                          padding: const EdgeInsets.all(15),
-                          alignment: FractionalOffset.bottomLeft,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                  image: AssetImage(hotel.image),
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.3),
-                                      BlendMode.darken),
-                                  fit: BoxFit.cover)),
-                          child: Text(
-                            "${hotel.title} ${index + 1}",
-                            style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+              child: AnimationLimiter(
+                child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    itemCount: _list.length,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final Hotel hotel = _list.reversed.toList()[index];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(seconds: 1),
+                        child: ScaleAnimation(
+                          delay: const Duration(milliseconds: 200),
+                          child: AspectRatio(
+                            aspectRatio: 2.1 / 1.4,
+                            child: Card(
+                              color: Colors.transparent,
+                              margin: EdgeInsets.zero,
+                              elevation: .0,
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                alignment: FractionalOffset.bottomLeft,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: DecorationImage(
+                                        image: AssetImage(hotel.image),
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.3),
+                                            BlendMode.darken),
+                                        fit: BoxFit.cover)),
+                                child: Text(
+                                  "${hotel.title} ${index + 1}",
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+              ),
             ),
           ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, index) => Card(
+              color: Colors.red,
+              child: ListTile(
+                title: Text('Title $index'),
+              ),
+            ),
+            childCount: 20,
+          )),
+          SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Card(
+                  color: Colors.green,
+                  child: ListTile(
+                    title: Text('Title $index'),
+                  ),
+                ),
+                childCount: 20,
+              ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3)),
           const SliverFillRemaining(),
         ],
       ),
