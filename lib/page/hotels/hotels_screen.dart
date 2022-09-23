@@ -29,6 +29,8 @@ class _HotelsScreenState extends State<HotelsScreen> {
   Widget build(BuildContext context) {
     return Material(
       child: CustomScrollView(
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         slivers: [
           SliverAppBar(
             expandedHeight: 200,
