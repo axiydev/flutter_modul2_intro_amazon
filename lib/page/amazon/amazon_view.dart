@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson_g/consts/consts.dart';
 import 'package:lesson_g/page/amazon/widget/best_sellers_widget.dart';
@@ -13,6 +16,23 @@ class AmazonView extends StatefulWidget {
 }
 
 class _AmazonViewState extends State<AmazonView> {
+  final ScrollController _controller = ScrollController();
+  double _angle = 0;
+  void rotateContainer() {
+    _controller.addListener(() {
+      if (kDebugMode) {
+        _angle = _controller.position.pixels / 1000;
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    rotateContainer();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +86,7 @@ class _AmazonViewState extends State<AmazonView> {
           ),
           Expanded(
               child: SingleChildScrollView(
+            controller: _controller,
             physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics()),
             child: Column(
@@ -79,7 +100,8 @@ class _AmazonViewState extends State<AmazonView> {
                 const SizedBox(
                   height: 10,
                 ),
-                const DealOfTheDayWidget(),
+                Transform.rotate(
+                    angle: pi * _angle, child: const DealOfTheDayWidget()),
                 const SizedBox(
                   height: 10,
                 ),

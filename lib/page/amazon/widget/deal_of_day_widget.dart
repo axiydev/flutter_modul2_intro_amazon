@@ -21,11 +21,16 @@ class DealOfTheDayWidget extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Image.asset(
-              'assets/image7/item_7.jpeg',
-              height: 200,
-              fit: BoxFit.cover,
-              width: double.infinity,
+            child: PhysicalModel(
+              color: Colors.transparent,
+              shadowColor: Colors.blue,
+              elevation: 10,
+              child: Image.asset(
+                'assets/image7/item_7.jpeg',
+                height: 200,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
           ),
           const Padding(
